@@ -2,6 +2,7 @@ package com.tina.bmi;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         findviews();
     }
 
+
     private void findviews() {
         edWeight = findViewById(R.id.ed_weight);
         edHeight = findViewById(R.id.ed_height);
@@ -41,6 +43,49 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("MainActivity","onStart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MainActivity","onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("MainActivity","onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("MainActivity","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("MainActivity","onDestroy");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("MainActivity","onRestart");
+    }
+
+
+
+
+
+
     public void bmi(View view){
         Log.d("MainActivity", "bmi");
         String w = edWeight.getText().toString();
@@ -50,7 +95,12 @@ public class MainActivity extends AppCompatActivity {
         float height = Float.parseFloat(h);
         float bmi = weight / (height * height);
         Log.d("MainActivity", bmi + "");
-        Toast.makeText(this,getString(R.string.your_bmi_is) + bmi,Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("BMI",bmi);
+        startActivity(intent);
+
+
+       /* Toast.makeText(this,getString(R.string.your_bmi_is) + bmi,Toast.LENGTH_LONG).show();
         new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.your_bmi_is)+bmi)
                 .setTitle("BMI")
@@ -63,5 +113,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+                */
     }
 }
